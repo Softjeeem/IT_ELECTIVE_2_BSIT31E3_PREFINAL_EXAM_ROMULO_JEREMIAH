@@ -1,1 +1,18 @@
 ROMULO JEREMIAH CUSAY - BSIT31E3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
