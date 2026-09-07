@@ -1,0 +1,33 @@
+@model List<IGrouping<string, QuestionAnswer>>
+@{
+    ViewData["Title"] = "Exam Review";
+    var totalItems = Model.Sum(g => g.Count());
+}
+
+<section class="summary-bar">
+    <div class="summary-chip"><strong>@totalItems</strong> items answered</div>
+    <div class="summary-chip"><strong>@Model.Count</strong> topics</div>
+    <div class="summary-chip"><strong>MVC</strong> pattern</div>
+</section>
+
+@foreach (var group in Model)
+{
+    <section class="topic-group">
+        <h2 class="topic-title">@group.Key</h2>
+        <div class="card-grid">
+            @foreach (var q in group.OrderBy(x => x.Number))
+            {
+                <a class="card" href="@Url.Action("Details", "Home", new { id = q.Number })">
+                    <div class="card-head">
+                        <span class="qnum">Item @q.Number</span>
+                    </div>
+                    <p class="qtext">@q.Question</p>
+                    <div class="answer-pill">
+                        <span class="answer-letter">@q.CorrectLetter</span>
+                        <span class="answer-text">@q.CorrectAnswerText</span>
+                    </div>
+                </a>
+            }
+        </div>
+    </section>
+}

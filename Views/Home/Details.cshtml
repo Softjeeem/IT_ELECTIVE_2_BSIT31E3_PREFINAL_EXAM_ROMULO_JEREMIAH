@@ -1,0 +1,36 @@
+@model QuestionAnswer
+@{
+    ViewData["Title"] = $"Item {Model.Number}";
+}
+
+<a class="back-link" href="@Url.Action("Index", "Home")">&larr; Back to all items</a>
+
+<article class="flashcard">
+    <div class="flashcard-topic">@Model.Topic</div>
+    <h2 class="flashcard-number">Item @Model.Number</h2>
+    <p class="flashcard-question">@Model.Question</p>
+
+    <ul class="choice-list">
+        @foreach (var choice in Model.Choices)
+        {
+            var isCorrect = choice.Key == Model.CorrectLetter;
+            <li class="choice @(isCorrect ? "choice-correct" : "")">
+                <span class="choice-letter">@choice.Key</span>
+                <span class="choice-text">@choice.Value</span>
+                @if (isCorrect)
+                {
+                    <span class="check">&#10003; My Answer</span>
+                }
+            </li>
+        }
+    </ul>
+
+    <div class="rationale">
+        <strong>Why:</strong> @Model.Rationale
+    </div>
+
+    @if (Model.Number < 20)
+    {
+        <a class="next-link" href="@Url.Action("Details", "Home", new { id = Model.Number + 1 })">Next item &rarr;</a>
+    }
+</article>
